@@ -12,5 +12,6 @@
 10. we trained ASR model and achiverd WER 8.9 and tried different tokenize 
 11. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
 12. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
+13. converted online diart from reading microphone to steaming files "add if possible that this allowed us to check for the DER and measure perofrmance"
 
 ## Recap
