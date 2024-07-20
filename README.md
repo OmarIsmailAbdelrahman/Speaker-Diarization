@@ -59,7 +59,7 @@ A typical speaker diarization pipeline consists of the following:
 #### pyannote
  - Vad model: `pynet`
  - Embedding extractor model: `wespeaker-voxceleb-resnet34-LM`
- <br>
+ 
 Speaker recognition model based on the ResNet34 architecture, trained on the VoxCeleb dataset, and utilizing a linear margin loss function to enhance its performance in distinguishing between different speakers. Margin-based loss functions are designed to improve the discriminative power of the model by increasing the margin between different classes in the feature space.
  - Agglomerative clustering: Hierarchical clustering method used to group objects based on their similarities. It is a bottom-up approach where each object starts as its own cluster, and pairs of clusters are merged as one moves up the hierarchy
 
