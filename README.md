@@ -9,7 +9,8 @@
 7. Nemo online *Faild*
 8. Diarat Online based on pyaanote diarization and it worked but have problem with determining speakers
 9. we tried to modifiy offline nemo to have a speaker linking *identify same speaker in different files*
-10. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
-11. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
+10. we trained ASR model and achiverd WER 8.9 and tried different tokenize 
+11. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
+12. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
 
 ## Recap
