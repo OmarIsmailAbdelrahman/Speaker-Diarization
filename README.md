@@ -48,3 +48,34 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
   <img src="https://github.com/user-attachments/assets/33697d5b-6381-478a-87e9-ccadfe05563e" alt="New wer"/>
 </p>
 
+## Offline Speaker Diarization Experiments
+A typical speaker diarization pipeline consists of the following:
+- Voice Activity Detector (VAD): detects the presence or absence of speech to generate segments for speech activity from the given audio recording.
+- Segmentation: Further breaks down the detected speech segments into smaller segments. This step ensures that each segment is small enough for accurate speaker embedding extraction.
+- Speaker Embedding Extractor: extracts speaker embedding vectors containing voice characteristics from raw audio signal.
+- Clustering Module: Groups the extracted speaker embeddings into clusters, where each cluster represents a unique speaker. This step helps to identify and differentiate between multiple speakers in the audio.
+
+### We attempted to use the following pipelines:
+#### pyannote
+ - Vad model: `pynet`
+ - Embedding extractor model: `wespeaker-voxceleb-resnet34-LM`
+ <br>
+Speaker recognition model based on the ResNet34 architecture, trained on the VoxCeleb dataset, and utilizing a linear margin loss function to enhance its performance in distinguishing between different speakers. Margin-based loss functions are designed to improve the discriminative power of the model by increasing the margin between different classes in the feature space.
+ - Agglomerative clustering: Hierarchical clustering method used to group objects based on their similarities. It is a bottom-up approach where each object starts as its own cluster, and pairs of clusters are merged as one moves up the hierarchy
+
+#### Nemo
+- Vad model: `MarbelNet`
+- Embedding Extractor: `Titanet-Large`
+- Clustering Model: `NME-SC`
+- Neural Diarizar: `MSDD`
+
+
+We decided to use nemo for the following reasons: 
+- Its embedding shows better `EER` results compared to `wespeaker-voxceleb-resnet34-LM` [[1]](#references). `Wespeaker-voxceleb-resnet293-LM` achieved better results than `Titanet-large`, however this is due it having more parameters which would increase inference time [[1]](#references).
+- Better Clustering model 
+
+## Online Speaker Diarization Attempt
+#### diart
+
+## References
+[1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. doi: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
