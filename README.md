@@ -11,3 +11,5 @@
 9. we tried to modifiy offline nemo to have a speaker linking *identify same speaker in different files*
 10. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
 11. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
+
+## Recap
