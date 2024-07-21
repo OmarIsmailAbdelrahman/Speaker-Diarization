@@ -101,6 +101,7 @@ We decided to use nemo for the following reasons:
 ##### Experiments
 - Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
 - After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
+- Tested  the following range of values 0.5 <= `sigmoid threshold` <= 0.9 showed no significant improvement compared to default value of 0.75.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/b76d786c-8569-4a29-a884-30a7b852c124" alt="context vector"/>
 </p>
