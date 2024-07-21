@@ -80,10 +80,8 @@ We decided to use nemo for the following reasons:
 - The NME value `gp` is used to find the optimal `p` and `k` number of clusters, with the ratio `r(p)` = `r / gp` serving as a proxy for the diarization error rate (DER).
 - `p` value should be minimized to get an
   accurate number of clusters, while the `gp` value should be
-  maximized to get the higher purity of clusters. Thus, we
-  calculate the ratio `r(p)` = `r / gp`
-  to find the best `p` value by
-  getting a size of the `p` value in proportion to `gp`
+  maximized to get the higher purity of clusters. Thus,
+  the ratio `r(p)` = `r / gp` is calculated to find the best `p` value by getting a size of the `p` value in proportion to `gp`.
 ##### MSDD [[3]](#references)
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e130e28a-1858-483d-9593-6d52485cf742" alt="MSDD"/>
