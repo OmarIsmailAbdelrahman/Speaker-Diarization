@@ -72,8 +72,18 @@ Speaker recognition model based on the ResNet34 architecture, trained on the Vox
 
 We decided to use nemo for the following reasons: 
 - Its embedding shows better `EER` results compared to `wespeaker-voxceleb-resnet34-LM` [[1]](#references). `Wespeaker-voxceleb-resnet293-LM` achieved better results than `Titanet-large`, however this is due to it having more parameters which would increase inference time [[1]](#references).
-- Better Clustering model 
+- Better clustering model, which is explained bellow.
 
+##### NME-SC 
+- The new framework estimates the row-wise binarization threshold pp and the number of clusters kk using the NME value derived from the eigengap heuristic.
+- The process involves creating an affinity matrix with raw cosine similarity values, binarizing it, symmetrizing it, computing the Laplacian, performing SVD, and calculating the eigengap vector.
+- The NME value `gp` is used to find the optimal `p` and `k` number of clusters, with the ratio `r(p)` = `r / gp` serving as a proxy for the diarization error rate (DER).
+- `p` value should be minimized to get an
+  accurate number of clusters, while the `gp` value should be
+  maximized to get the higher purity of clusters. Thus, we
+  calculate the ratio `r(p)` = `r / gp`
+  to find the best `p` value by
+  getting a size of the `p` value in proportion to `gp`
 ##### MSDD
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e130e28a-1858-483d-9593-6d52485cf742" alt="MSDD"/>
@@ -86,7 +96,6 @@ We decided to use nemo for the following reasons:
 <p align="center">
   <img src="https://github.com/user-attachments/assets/deaf8724-6b84-460a-8133-de1c03a2ae14" alt="context vector"/>
 </p>
-
 
 
 ## Online Speaker Diarization Attempt
