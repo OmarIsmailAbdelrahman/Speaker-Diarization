@@ -71,8 +71,23 @@ Speaker recognition model based on the ResNet34 architecture, trained on the Vox
 
 
 We decided to use nemo for the following reasons: 
-- Its embedding shows better `EER` results compared to `wespeaker-voxceleb-resnet34-LM` [[1]](#references). `Wespeaker-voxceleb-resnet293-LM` achieved better results than `Titanet-large`, however this is due it having more parameters which would increase inference time [[1]](#references).
+- Its embedding shows better `EER` results compared to `wespeaker-voxceleb-resnet34-LM` [[1]](#references). `Wespeaker-voxceleb-resnet293-LM` achieved better results than `Titanet-large`, however this is due to it having more parameters which would increase inference time [[1]](#references).
 - Better Clustering model 
+
+##### MSDD
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e130e28a-1858-483d-9593-6d52485cf742" alt="MSDD"/>
+</p>
+
+- The MSDD approach offers overlap-aware diarization, flexibility in speaker numbers, and improved performance without extensive parameter tuning. It can handle a variable number of speakers without being constrained by a fixed number during training. 
+- The multi-scale approach is fulfilled by employing multi-scale segmentation and extracting speaker embeddings from each scale.
+- When combining the features from each scale, the weight of each scale largely affects the speaker diarization performance.
+- The final speaker labels are estimated using the context vector
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/deaf8724-6b84-460a-8133-de1c03a2ae14" alt="context vector"/>
+</p>
+
+
 
 ## Online Speaker Diarization Attempt
 #### diart
