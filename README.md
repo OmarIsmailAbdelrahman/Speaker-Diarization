@@ -25,7 +25,7 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
 
 ### Improvements on Unigram Tokenizer
 - Add the missing tokens and thus removing the english characters from the model tokens.
-- Limit `max token length` to 2 tokens to prevent whole words being added to the model vocabulary
+- Limit `max token length` to 2 characters to prevent whole words from being added to the model vocabulary
 <p align="center">
   <img src="https://github.com/user-attachments/assets/4ad45c4a-a5ba-438f-ae58-ca5192caf08c" alt="Improved unigram tokenizer"/>
 </p>
