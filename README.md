@@ -81,7 +81,7 @@ We decided to use nemo for the following reasons:
 - `p` value should be minimized to get an
   accurate number of clusters, while the `gp` value should be
   maximized to get the higher purity of clusters. Thus,
-  the ratio `r(p)` = `r / gp` is calculated to find the best `p` value by getting a size of the `p` value in proportion to `gp`.
+  the ratio `r(p)` = `p / gp` is calculated to find the best `p` value by getting a size of the `p` value in proportion to `gp`.
 ##### MSDD [[3]](#references)
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e130e28a-1858-483d-9593-6d52485cf742" alt="MSDD"/>
@@ -93,6 +93,16 @@ We decided to use nemo for the following reasons:
 - The final speaker labels are estimated using the context vector
 <p align="center">
   <img src="https://github.com/user-attachments/assets/deaf8724-6b84-460a-8133-de1c03a2ae14" alt="context vector"/>
+</p>
+
+##### Challenges
+- Nemo NME-SC implementation sometimes returned wrong number of clusters 
+
+##### Experiments
+- Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
+- After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b76d786c-8569-4a29-a884-30a7b852c124" alt="context vector"/>
 </p>
 
 
