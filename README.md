@@ -97,14 +97,19 @@ We decided to use nemo for the following reasons:
 
 ##### Challenges
 - sometimes the configuration require to be set hard-coded because the configuration is not always set the same across the system, example "enhanced_count_thres" is always set to 80
-- Nemo NME-SC implementation sometimes returned wrong number of clusters: tested enhanced_count_thres raneg from 0 to 100, this variable and min_samples_for_nmesc with default = 6 "minimum number of samples required for NME clustering" if either of them are higher than embedding it calls getEnhancedSpeakerCount, which adds dummy to add noise to the clustering algorithm, the mean of the number of embedding is above 40 thus most of the time the function is called because of the default value of 80, and we checked error between the correct number of cluster and the predicted number of clusters and the average predicted number of clusters which resulted into error of 1.535, and average of prediction 1.406 on dataset of average X clusters, which means that the cluster initialization fails to predict the correct number most of the time and predict a single cluster, this have a better DER result than setting it to 40, which have error of 1.605, and 0 with error of 2.284, but having a lower DER rate doesn't mean that it is a good thing because on dataset that always have more than 1 speaker means that the initalization can't cluster correctly and just consider every audio as a single cluster, thus problem is probabily caused by using the dummy clusters, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time.
+- Nemo NME-SC implementation sometimes returned wrong number of clusters: 
+  - Tested `enhanced_count_threshold` range from 0 to 100, and `min_samples_for_nmesc` which is the minimum number of samples required for NME clustering, which was 6 by default.
+  - if either of them are higher than embeddings count it calls `getEnhancedSpeakerCount`, which adds dummy embeddings to add noise to the clustering algorithm.
+  - The mean of the number of embedding is above 40 thus most of the time the function is called because of the default value of 80.
+  - We checked the error between the correct number of cluster and the predicted number of clusters and the average predicted number of clusters which resulted into error of 1.535%, and average of prediction 1.406% on dataset of average X clusters.
+  - which means that the cluster initialization fails to predict the correct number most of the time and predict a single cluster, this have a better DER result than setting it to 40, which have error of 1.605%, and 0 with error of 2.284%, but having a lower DER rate doesn't mean that it is a good thing because on dataset that always have more than 1 speaker means that the initalization can't cluster correctly and just consider every audio as a single cluster, thus problem is probabily caused by using the dummy clusters, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time.
 - and removing the number of dummy clusters makes the model highly unstable? 
 
 ##### Experiments
 - Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
 - After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
 - Tested  the following range of values 0.5 <= `sigmoid threshold` <= 0.9 showed no significant improvement compared to default value of 0.75.
-- fine-tuned the MSDD module but it showed no improvement.
+- fine-tuned the MSDD module but it showed no improvement. 1 epoch took 6 hours so we trained for 5 epochs only.
 
 ##### Results
 <p align="center">
@@ -114,7 +119,7 @@ We decided to use nemo for the following reasons:
 
 ## Online Speaker Diarization Attempt
 ### diart
-Diart by default uses pyannote pipeline but adds online streaming and buffering functionality.
+Diart by default uses pyannote pipeline but adds online streaming and buffering functionality.  
 - Integrate Nemo ASR model with diart 
 - Send audio as 2 seconds chunks, transcribe and dairize it then send next chunk.
 
