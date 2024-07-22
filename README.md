@@ -113,8 +113,12 @@ We decided to use nemo for the following reasons:
 
 
 ## Online Speaker Diarization Attempt
-#### diart
-
+### diart
+اكتب هنا يا مطاوع الجزء ال اشتغل معانا *و اتاكد ان الmodel شغال يغالي النهارده عشان انت عارف عك ال dependencies*
+### Challenges
+the model couldn't keep the profile of the speakers, and in long run the model starts to hallucination and keep predicting the same words
+### Custom Diart Pipeline
+  To solve this problem we build a custom pipeline that uses pyaanote VAD model then fed the output to TitaNet from Nemo for better embeddings, then we tried two different methods for Clustring, the first is using the online clustring class of nemo, and building our clustring model, "continue after building experements", and for easier debug we changed the pipeline to stream files instead from taking audio from microphone, this alows for measureing performance and consistance input.
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
