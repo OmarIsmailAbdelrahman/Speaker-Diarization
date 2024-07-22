@@ -114,9 +114,9 @@ We decided to use nemo for the following reasons:
 
 ## Online Speaker Diarization Attempt
 ### diart
+Diart
 - Integrate Nemo ASR model with diart 
 - Send audio as 2 seconds chunks, transcribe and dairize it then send next chunk.
-- If no speech is detected, skip this chunk and wait for the next one.
 
 | Number of Anchors | Number of Speakers | Mean Error of Number of Clusters | Mean Number of Predictions | FA    | MISS   | Diarization ER | Confusion ER |
 |-------------------|--------------------|---------------------------------|---------------------------|-------|--------|----------------|--------------|
