@@ -1,18 +1,18 @@
 # Speaker-Diarization
 
-1. we tried nemo offline diarization model
+1. we tried nemo offline diarization model "ADD VAD"
 2. we tried to train nemo offline diarization it but *failed no change*
 3. we created a custom dataset using SADA arabic dataset and created different configuration of this dataset from changing the overlapping duration and probability occurance and silance between audio files
 4. we tried pyaanote offline diarization model and compared between it and nemo, and the results show that nemo is better "in paper nemo is better in clustrering and embedding model"
-5. we found a problem in nemo clustring algorithm, which returns a single cluster and tried to fix it *give the code and example and test the difference between the original and modified code* ???
-6. we tried different configuration on nemo offline diarization model, configuration 1.rp_threshold 2.sigmoid_threshold 3.different scales and weight *show results*
+5. we found a problem in nemo clustring algorithm, which returns a single cluster and tried to fix it *give the code and example and test the difference between the original and modified code* ??? "improve"
+6. we tried different configuration on nemo offline diarization model, configuration 1.rp_threshold 2.sigmoid_threshold 3.different scales and weight *show results* "write scales and weights"
 7. Nemo online *Faild*
-8. Diarat Online based on pyaanote diarization and it worked but have problem with determining speakers
-9. we tried to modifiy offline nemo to have a speaker linking *identify same speaker in different files*
-10. we trained ASR model and achiverd WER 8.9 and tried different tokenize 
-11. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
-12. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
-13. converted online diart from reading microphone to steaming files "add if possible that this allowed us to check for the DER and measure perofrmance"
+8. Diarat Online based on pyaanote diarization and it worked but have problem with determining speakers "add more explanation with too much talk"
+9. we tried to modifiy offline nemo to have a speaker linking *identify same speaker in different files*  "Faild"
+10. Xwe trained ASR model and achiverd WER 8.9 and tried different tokenize
+11. Xwe integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
+12. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild* "improve"
+13. converted online diart from reading microphone to steaming files "add if possible that this allowed us to check for the DER and measure perofrmance" "improve"
 
 ## ASR Model Improvement
 The unigram tokenizer based conformer which achieved  `11.9 MLD` used in phase 1 was using 32 precision which took double the training time of 16 precision model with no significant effect on the results. Therefore, we decided to use `16 precision` models in this phase.
