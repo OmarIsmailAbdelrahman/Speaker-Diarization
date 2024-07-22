@@ -102,7 +102,8 @@ We decided to use nemo for the following reasons:
   - if either of them are higher than embeddings count it calls `getEnhancedSpeakerCount`, which adds dummy embeddings to add noise to the clustering algorithm.
   - The mean of the number of embedding is above 40 thus most of the time the function is called because of the default value of 80.
   - We checked the error between the correct number of cluster and the predicted number of clusters and the average predicted number of clusters which resulted into error of 1.535%, and average of prediction 1.406% on dataset of average X clusters.
-  - which means that the cluster initialization fails to predict the correct number most of the time and predict a single cluster, this have a better DER result than setting it to 40, which have error of 1.605%, and 0 with error of 2.284%, but having a lower DER rate doesn't mean that it is a good thing because on dataset that always have more than 1 speaker means that the initalization can't cluster correctly and just consider every audio as a single cluster, thus problem is probabily caused by using the dummy clusters, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time.
+  - which means that the cluster initialization fails to predict the correct number most of the time and predict a single cluster, this have a better DER result than setting it to 40, which have error of 1.605%, and 0 with error of 2.284%.
+  - Having a lower DER rate doesn't mean that it is a good thing because on dataset that always have more than 1 speaker means that the initalization can't cluster correctly and just consider every audio as a single cluster, thus problem is probabily caused by using the dummy clusters, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time.
 - and removing the number of dummy clusters makes the model highly unstable? 
 
 ##### Experiments
