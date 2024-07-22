@@ -114,7 +114,9 @@ We decided to use nemo for the following reasons:
 
 ## Online Speaker Diarization Attempt
 ### diart
-اكتب هنا يا مطاوع الجزء ال اشتغل معانا *و اتاكد ان الmodel شغال يغالي النهارده عشان انت عارف عك ال dependencies*
+- Integrate Nemo ASR model with diart 
+- Send audio as 2 seconds chunks, transcribe and dairize it then send next chunk.
+- If no speech is detected, skip this chunk and wait for the next one.
 ### Challenges
 the model couldn't keep the profile of the speakers, and in long run the model starts to hallucination and keep predicting the same words
 ### Custom Diart Pipeline
