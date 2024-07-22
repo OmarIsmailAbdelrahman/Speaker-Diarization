@@ -114,7 +114,7 @@ We decided to use nemo for the following reasons:
 
 ## Online Speaker Diarization Attempt
 ### diart
-Diart
+Diart by default uses pyannote pipeline but adds online streaming and buffering functionality.
 - Integrate Nemo ASR model with diart 
 - Send audio as 2 seconds chunks, transcribe and dairize it then send next chunk.
 
