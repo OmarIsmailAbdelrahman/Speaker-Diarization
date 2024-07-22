@@ -96,7 +96,8 @@ We decided to use nemo for the following reasons:
 </p>
 
 ##### Challenges
-- Nemo NME-SC implementation sometimes returned wrong number of clusters 
+- Nemo NME-SC implementation sometimes returned wrong number of clusters
+- tested enhanced_count_thres raneg from 20 to 100 and checked error of number of clusters and the average predicted number of clusters which resulted into error of 1.48, and average of prediction 1.4 on dataset of average 3 clusters, which means that the cluster initialization fails to predict the correct number most of the time and predict a single cluster, thus problem is probabily caused by using dummy clusters because the algorithm uses dummy cluster to add noise to the clustering algorithm, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time, and removing the number of dummy clusters makes the model highly unstable? 
 
 ##### Experiments
 - Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
