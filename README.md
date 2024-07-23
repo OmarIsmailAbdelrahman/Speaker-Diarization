@@ -106,6 +106,21 @@ We decided to use nemo for the following reasons:
   - Having a lower DER rate doesn't mean that it is a good thing because on dataset that always have more than 1 speaker means that the initalization can't cluster correctly and just consider every audio as a single cluster, thus problem is probabily caused by using the dummy clusters, the default value is 3 dummy clusters and this results to have a 4 clusters in total most of the time.
 - and removing the number of dummy clusters makes the model highly unstable? 
 
+| Dummy Clusters | Enhanced Threshhold | Mean Error of Number of Clusters | Diarization ER |
+|----------------|---------------------|----------------------------------|----------------|
+| 0              | 40                  | 9.25                             | 0.4583         |
+| 0              | 80                  | 20.314                           | 0.6226         |
+| 1              | 40                  | 8.655                            | 0.4533         |
+| 1              | 80                  | 19.493                           | 0.6156         |
+| 2              | 40                  | 8.084                            | 0.4489         |
+| 2              | 80                  | 18.694                           | 0.6085         |
+| 3              | 40                  | 1.605                            | 0.3486         |
+| 3              | 80                  | **1.535**                        | **0.3222**     |
+| 4              | 40                  | 7.044                            | 0.4388         |
+| 4              | 80                  | 1.574                            | 0.3260         |
+| 5              | 40                  | 1.660                            | 0.3532         |
+| 5              | 80                  | 1.588                            | 0.3275         |
+
 ##### Experiments
 - Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
 - After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
@@ -124,26 +139,16 @@ Diart by default uses pyannote pipeline but adds online streaming and buffering 
 - Integrate Nemo ASR model with diart 
 - Send audio as 2 seconds chunks, transcribe and dairize it then send next chunk.
 
-| Dummy Clusters | Enhanced Threshhold | Mean Error of Number of Clusters | Diarization ER |
-|----------------|---------------------|----------------------------------|----------------|
-| 0              | 40                  | 9.25                             | 0.4583         |
-| 0              | 80                  | 20.314666666666668               | 0.6226         |
-| 1              | 40                  | 8.655333333333333                | 0.4533         |
-| 1              | 80                  | 19.493333333333332               | 0.6156         |
-| 2              | 40                  | 8.084                            | 0.4489         |
-| 2              | 80                  | 18.694666666666667               | 0.6085         |
-| 3              | 40                  | 1.605                            | 0.3486         |
-| 3              | 80                  | **1.5353333333333334**           | **0.3222**     |
-| 4              | 40                  | 7.044666666666667                | 0.4388         |
-| 4              | 80                  | 1.5746666666666667               | 0.3260         |
-| 5              | 40                  | 1.6606666666666667               | 0.3532         |
-| 5              | 80                  | 1.5886666666666667               | 0.3275         |
-
 
 ### Challenges
 the model couldn't keep the profile of the speakers, and in long run the model starts to hallucination and keep predicting the same words
-### Custom Diart Pipeline
-  To solve this problem we build a custom pipeline that uses pyaanote VAD model then fed the output to TitaNet from Nemo for better embeddings, then we tried two different methods for Clustring, the first is using the online clustring class of nemo, and building our clustring model, "continue after building experements", and for easier debug we changed the pipeline to stream files instead from taking audio from microphone, this alows for measureing performance and consistance input.
+
+### Custom Online Pipeline
+  We built a custom online diraization using different modules and RxPY Library and used Diart as a reference, we used pyaanote VAD model for predicting the segments with activity, then we used multi-
+  
+  , you also modified the input to stream audio files instead of microphone for consistence input and measuering performance more accuratly, 
+  
+
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
