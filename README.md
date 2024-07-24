@@ -162,7 +162,11 @@ Diart by default uses pyannote pipeline but adds online streaming and buffering 
 
 
 ### Challenges
-the model couldn't keep the profile of the speakers, and somethimes in long runs the pipeline starts to miss label and keep predicting the same words
+- The model couldn't keep the profile of the speakers, and somethimes in long runs the pipeline starts to miss label and keep predicting the same words
+- The mic used to record the audio had a bad quality so this affected the diarization and transcription results
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/29fcec98-9727-4ab8-b8d6-8bccaeb0d5b2" alt="online results"/>
+</p>
 
 ### Custom Online Pipeline
 #### Overview
