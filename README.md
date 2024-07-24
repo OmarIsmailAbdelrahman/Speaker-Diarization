@@ -217,7 +217,7 @@ Real-time speaker diarization and transcription.
 optional arguments:
   -h, --help            show this help message and exit
   --model_name MODEL_NAME
-                        Name of the NeMo ASR model.
+                        Path to the .nemo ASR model checkpoint file.
   --mic_device MIC_DEVICE
                         Microphone device ID.
 
