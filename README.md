@@ -95,8 +95,10 @@ We decided to use nemo for the following reasons:
   <img src="https://github.com/user-attachments/assets/deaf8724-6b84-460a-8133-de1c03a2ae14" alt="context vector"/>
 </p>
 
+##### Language Model
+- Integrated a `5-gram` language model with the asr model.
 ##### Challenges
-- sometimes the configuration require to be set hard-coded because the configuration is not always set the same across the system, example "enhanced_count_thres" is always set to 80
+- sometimes the configuration require to be set hard-coded because the configuration is not always set the same across the system, example `enhanced_count_thres` is always set to 80.
 - Nemo NME-SC implementation sometimes returned wrong number of clusters: 
   - Tested `enhanced_count_threshold` range from 0 to 100, and `min_samples_for_nmesc` which is the minimum number of samples required for NME clustering, which was 6 by default.
   - if either of them are higher than embeddings count it calls `getEnhancedSpeakerCount`, which adds dummy embeddings to add noise to the clustering algorithm.
@@ -182,7 +184,7 @@ We have developed a custom online diarization system leveraging various modules 
   - Set the length of time each speaker is heard.
   - Adjust the likelihood and extent of speaker overlap.
   - applying dynamic range compression to improve the clarity and quality of the audio.
-- **Used Dataset**: We use the SADA صدى[4] dataset that exceeds 600 hours of Arabic audio recordings, it is used for measuring the performance of our diarization system.
+- **Used Dataset**: We use the SADA [[4]](#references) dataset that exceeds 600 hours of Arabic audio recordings, it is used for measuring the performance of our diarization system.
 
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
