@@ -181,7 +181,7 @@ We have developed a custom online diarization system leveraging various modules 
   - Set the length of time each speaker is heard.
   - Adjust the likelihood and extent of speaker overlap.
   - applying dynamic range compression to improve the clarity and quality of the audio.
-- **Used Dataset**: We use the SADA صدى dataset that exceeds 600 hours of Arabic audio recordings, it is used for measuring the performance of our diarization system.
+- **Used Dataset**: We use the SADA صدى[4] dataset that exceeds 600 hours of Arabic audio recordings, it is used for measuring the performance of our diarization system.
 
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
@@ -189,3 +189,5 @@ We have developed a custom online diarization system leveraging various modules 
 [2] T. J. Park, K. J. Han, M. Kumar, and S. Narayanan, "Auto-Tuning Spectral Clustering for Speaker Diarization Using Normalized Maximum Eigengap," arXiv preprint arXiv:2003.02405, 2020. Available: https://arxiv.org/abs/2003.02405.
 
 [3] T. J. Park, N. R. Koluguri, J. Balam, and B. Ginsburg, "Multi-scale Speaker Diarization with Dynamic Scale Weighting," arXiv preprint arXiv:2203.15974, 2022. Available: https://arxiv.org/abs/2203.15974
+
+[4] https://www.kaggle.com/datasets/sdaiancai/sada2022
