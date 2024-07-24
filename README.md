@@ -198,6 +198,13 @@ We have developed a custom online diarization system leveraging various modules 
   The Pipeline is missing Connection between the online diarization output and the ASR Model.
 
 
+## Checkpoints
+The checkpoint is in this [kaggle dataset](https://www.kaggle.com/datasets/youssefbayoumy/the-best-results
+)
+```
+/the-best-results/results/Some name of our experiment/checkpoints/conformer.nemo
+```
+
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
