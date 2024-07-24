@@ -227,6 +227,8 @@ def longFile(model_path):
             fp.write('\n')
 
         # Run the diarization inference
+        cfg.diarizer.out_dir = output_inference_path
+
         os.system(
             f'HYDRA_FULL_ERROR=1 python {data_dir}/NeMo/examples/speaker_tasks/diarization/neural_diarizer/multiscale_diar_decoder_infer.py --config-path {data_dir} --config-name diar_infer_telephonic.yaml')
 
