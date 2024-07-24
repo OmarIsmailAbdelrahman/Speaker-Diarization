@@ -34,7 +34,7 @@ def clone_repo(repo_url, clone_dir):
         print(f"Repository cloned to {clone_dir}")
     except Exception as e:
         print(f"An error occurred: {e}")
-def split_json_file(input_path, output_path, lines_per_part):
+def split_json_file(input_path):
     # Ensure the output directory exists
     output_path = os.path.join(os.getcwd(), "split_manifest")
     lines_per_part = 1  # Set this to the number of lines you want per file
