@@ -210,14 +210,14 @@ Run setup to install required packages versions and dependencies:
 ```
 python setup.py
 ```
-### online diarization infrence
+### DIART online diarization infrence
 To list mic deices ID use: <br>
 ```
 python -m sounddevice
 ```
 
 ```python
-usage: script.py [-h] --model_name MODEL_NAME --mic_device MIC_DEVICE
+usage: nemo_online.py [-h] --model_name MODEL_NAME --mic_device MIC_DEVICE
 
 Real-time speaker diarization and transcription.
 
