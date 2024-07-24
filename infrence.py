@@ -187,7 +187,8 @@ def longFile(model_path):
     repo_url = "https://github.com/motawie0/NeMo.git"
     # Directory where you want to clone the repository
 
-    clone_repo(repo_url, data_dir)
+    # clone_repo(repo_url, data_dir)
+    exit_code = os.system(f"git clone {repo_url}")
     # Create necessary directories
     os.makedirs(os.path.join(data_dir, 'temp_wav_output'), exist_ok=True)
     os.makedirs(os.path.join(data_dir, 'temp_wav'), exist_ok=True)
