@@ -31,11 +31,6 @@ import git
 def clone_repo(repo_url):
     try:
         current_dir = os.getcwd()  # Get the current working directory
-        # Check if the directory is not empty
-        if os.listdir(current_dir):
-            raise Exception("The current directory is not empty.")
-
-        # Clone the repository
         git.Repo.clone_from(repo_url, current_dir)
         print(f"Repository cloned to the current directory: {current_dir}")
     except Exception as e:
