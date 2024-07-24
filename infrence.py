@@ -25,8 +25,20 @@ import csv
 from pydub import AudioSegment
 from nemo.collections.asr.models import EncDecCTCModel
 import re
+import git
 
+
+def clone_repo(repo_url, clone_dir):
+    try:
+        git.Repo.clone_from(repo_url, clone_dir)
+        print(f"Repository cloned to {clone_dir}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 def split_json_file(input_path, output_path, lines_per_part):
+    # Ensure the output directory exists
+    output_path = os.path.join(os.getcwd(), "split_manifest")
+    lines_per_part = 1  # Set this to the number of lines you want per file
+
     # Ensure the output directory exists
     os.makedirs(output_path, exist_ok=True)
 
@@ -55,7 +67,7 @@ def crop_audio(input_wav, start_ms, end_ms):
     audio = AudioSegment.from_wav(input_wav)
     audio = audio.set_frame_rate(16000)
     cropped_audio = audio[start_ms*1000:end_ms*1000]
-    cropped_audio.export("/kaggle/working/temp_wav_output/croped_file.wav", format="wav")
+    cropped_audio.export("temp_wav_output/croped_file.wav", format="wav")
 
 def transcribe_audio(checkpoint_path, data_dir, output_csv='transcriptions.csv', batch_size=4):
     # Restore the ASR model from the checkpoint
@@ -88,64 +100,95 @@ def transcribe_audio(checkpoint_path, data_dir, output_csv='transcriptions.csv',
 
     print(f"Transcriptions saved to {output_csv}")
 
-data_dir = os.getcwd()
-DOMAIN_TYPE = "telephonic" # Can be meeting or telephonic based on domain type of the audio file
-CONFIG_FILE_NAME = f"diar_infer_{DOMAIN_TYPE}.yaml"
-
-CONFIG_URL = f"https://raw.githubusercontent.com/NVIDIA/NeMo/main/examples/speaker_tasks/diarization/conf/inference/{CONFIG_FILE_NAME}"
-
-if not os.path.exists(os.path.join(data_dir,CONFIG_FILE_NAME)):
-    CONFIG = wget.download(CONFIG_URL, data_dir)
-else:
-    CONFIG = os.path.join(data_dir,CONFIG_FILE_NAME)
-
-cfg = OmegaConf.load(CONFIG)
-print(OmegaConf.to_yaml(cfg))
+def time_to_seconds(minutes, seconds):
+    return int(minutes) * 60 + float(seconds)
 
 
-output_path = os.path.join(data_dir, 'split_manifest')
-lines_per_part = 1  # Set this to the number of lines you want per file
+# Function to process a single file and convert it to JSON
+def process_file(input_file_path, output_file_path):
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        data = file.read()
 
-# Ensure the output directory exists
-os.makedirs(output_path, exist_ok=True)
+    # Regular expression to parse the data
+    pattern = re.compile(r'\[(\d{2}):(\d{2}\.\d{2}) - (\d{2}):(\d{2}\.\d{2})\] (speaker_\d+): (.+)')
+
+    # Parse the input data and convert to JSON format
+    segments = []
+    for match in pattern.finditer(data):
+        start_minutes, start_seconds, end_minutes, end_seconds, speaker, text = match.groups()
+        start_time = time_to_seconds(start_minutes, start_seconds)
+        end_time = time_to_seconds(end_minutes, end_seconds)
+        segments.append({
+            "start": start_time,
+            "end": end_time,
+            "speaker": speaker,
+            "text": text
+        })
+
+    # Write the JSON data to a file
+    with open(output_file_path, 'w', encoding='utf-8') as f:
+        json.dump(segments, f, ensure_ascii=False, indent=4)
 
 
-pretrained_speaker_model='titanet_large'
-cfg.diarizer.out_dir = data_dir #Directory to store intermediate files and prediction outputs
-cfg.diarizer.speaker_embeddings.model_path = pretrained_speaker_model
-cfg.diarizer.clustering.parameters.oracle_num_speakers=False
-cfg.batch_size=1
-cfg.diarizer.msdd_model.parameters.infer_batch_size=1
-cfg.diarizer.asr.parameters.asr_batch_size=1
-# Using Neural VAD and Conformer ASR
-cfg.diarizer.vad.model_path = 'vad_multilingual_marblenet'
-cfg.diarizer.asr.model_path = "/kaggle/input/the-best-results/results/Some name of our experiment/checkpoints/conformer.nemo"
-cfg.diarizer.oracle_vad = False
-cfg.diarizer.asr.parameters.asr_based_vad = False
-cfg.diarizer.ignore_overlap=False
-
-
-too_big = []
-for manifest_file in os.listdir(output_path):
-    file_path = os.path.join(manifest_file)
-    print(file_path)
-    with open(file_path, 'r') as file:
-        dur = json.load(file)['duration']
-    if dur > 200:
-        too_big.append(file_path)
-        continue
-    cfg.diarizer.manifest_filepath = file_path
-    asr_decoder_ts = ASRDecoderTimeStamps(cfg.diarizer)
-    asr_model = asr_decoder_ts.set_asr_model()
-    word_hyp, word_ts_hyp = asr_decoder_ts.run_ASR(asr_model)
-    asr_diar_offline = OfflineDiarWithASR(cfg.diarizer)
-    asr_diar_offline.word_ts_anchor_offset = asr_decoder_ts.word_ts_anchor_offset
-    diar_hyp, diar_score = asr_diar_offline.run_diarization(cfg, word_ts_hyp)
-    trans_info_dict = asr_diar_offline.get_transcript_with_speaker_labels(diar_hyp, word_hyp, word_ts_hyp)
-    clear_output()
-
-# Define the data directory
 def longFile(model_path):
+    data_dir = os.getcwd()
+    DOMAIN_TYPE = "telephonic"  # Can be meeting or telephonic based on domain type of the audio file
+    CONFIG_FILE_NAME = f"diar_infer_{DOMAIN_TYPE}.yaml"
+
+    CONFIG_URL = f"https://raw.githubusercontent.com/NVIDIA/NeMo/main/examples/speaker_tasks/diarization/conf/inference/{CONFIG_FILE_NAME}"
+
+    if not os.path.exists(os.path.join(data_dir, CONFIG_FILE_NAME)):
+        CONFIG = wget.download(CONFIG_URL, data_dir)
+    else:
+        CONFIG = os.path.join(data_dir, CONFIG_FILE_NAME)
+
+    cfg = OmegaConf.load(CONFIG)
+    print(OmegaConf.to_yaml(cfg))
+
+    output_path = os.path.join(data_dir, 'split_manifest')
+    lines_per_part = 1  # Set this to the number of lines you want per file
+
+    # Ensure the output directory exists
+    os.makedirs(output_path, exist_ok=True)
+
+    pretrained_speaker_model = 'titanet_large'
+    cfg.diarizer.out_dir = data_dir  # Directory to store intermediate files and prediction outputs
+    cfg.diarizer.speaker_embeddings.model_path = pretrained_speaker_model
+    cfg.diarizer.clustering.parameters.oracle_num_speakers = False
+    cfg.batch_size = 1
+    cfg.diarizer.msdd_model.parameters.infer_batch_size = 1
+    cfg.diarizer.asr.parameters.asr_batch_size = 1
+    # Using Neural VAD and Conformer ASR
+    cfg.diarizer.vad.model_path = 'vad_multilingual_marblenet'
+    cfg.diarizer.asr.model_path = "/kaggle/input/the-best-results/results/Some name of our experiment/checkpoints/conformer.nemo"
+    cfg.diarizer.oracle_vad = False
+    cfg.diarizer.asr.parameters.asr_based_vad = False
+    cfg.diarizer.ignore_overlap = False
+
+    too_big = []
+    for manifest_file in os.listdir(output_path):
+        file_path = os.path.join(manifest_file)
+        print(file_path)
+        with open(file_path, 'r') as file:
+            dur = json.load(file)['duration']
+        if dur > 200:
+            too_big.append(file_path)
+            continue
+        cfg.diarizer.manifest_filepath = file_path
+        asr_decoder_ts = ASRDecoderTimeStamps(cfg.diarizer)
+        asr_model = asr_decoder_ts.set_asr_model()
+        word_hyp, word_ts_hyp = asr_decoder_ts.run_ASR(asr_model)
+        asr_diar_offline = OfflineDiarWithASR(cfg.diarizer)
+        asr_diar_offline.word_ts_anchor_offset = asr_decoder_ts.word_ts_anchor_offset
+        diar_hyp, diar_score = asr_diar_offline.run_diarization(cfg, word_ts_hyp)
+        trans_info_dict = asr_diar_offline.get_transcript_with_speaker_labels(diar_hyp, word_hyp, word_ts_hyp)
+        clear_output()
+
+    # Define the data directory
+    repo_url = "https://github.com/NVIDIA/NeMo.git"
+    # Directory where you want to clone the repository
+
+    clone_repo(repo_url, data_dir)
     # Create necessary directories
     os.makedirs(os.path.join(data_dir, 'temp_wav_output'), exist_ok=True)
     os.makedirs(os.path.join(data_dir, 'temp_wav'), exist_ok=True)
@@ -212,58 +255,30 @@ def longFile(model_path):
         # Write the JSON data to a file
         with open(output_json_path, 'w', encoding='utf-8') as f:
             json.dump(segments, f, ensure_ascii=False, indent=4)
+    # Paths to the input and output directories
+    input_directory = os.path.join(data_dir, 'output_inference/pred_rttms')
+    output_directory = os.path.join(data_dir, 'long_audio_json')
+
+    # Create the output directory if it doesn't exist
+    os.makedirs(output_directory, exist_ok=True)
+
+    # Process each .txt file in the input directory
+    for filename in os.listdir(input_directory):
+        if filename.endswith('.txt'):
+            input_file_path = os.path.join(input_directory, filename)
+            output_file_name = os.path.splitext(filename)[0] + '.json'
+            output_file_path = os.path.join(output_directory, output_file_name)
+
+            # Process the file and convert to JSON
+            process_file(input_file_path, output_file_path)
+
+            print(f"Processed {input_file_path} -> {output_file_path}")
 
 
 
 # Function to convert time in "MM:SS.SS" format to seconds
-def time_to_seconds(minutes, seconds):
-    return int(minutes) * 60 + float(seconds)
 
 
-# Function to process a single file and convert it to JSON
-def process_file(input_file_path, output_file_path):
-    with open(input_file_path, 'r', encoding='utf-8') as file:
-        data = file.read()
-
-    # Regular expression to parse the data
-    pattern = re.compile(r'\[(\d{2}):(\d{2}\.\d{2}) - (\d{2}):(\d{2}\.\d{2})\] (speaker_\d+): (.+)')
-
-    # Parse the input data and convert to JSON format
-    segments = []
-    for match in pattern.finditer(data):
-        start_minutes, start_seconds, end_minutes, end_seconds, speaker, text = match.groups()
-        start_time = time_to_seconds(start_minutes, start_seconds)
-        end_time = time_to_seconds(end_minutes, end_seconds)
-        segments.append({
-            "start": start_time,
-            "end": end_time,
-            "speaker": speaker,
-            "text": text
-        })
-
-    # Write the JSON data to a file
-    with open(output_file_path, 'w', encoding='utf-8') as f:
-        json.dump(segments, f, ensure_ascii=False, indent=4)
-
-
-# Paths to the input and output directories
-input_directory = os.path.join(data_dir, 'output_inference/pred_rttms')
-output_directory = os.path.join(data_dir, 'long_audio_json')
-
-# Create the output directory if it doesn't exist
-os.makedirs(output_directory, exist_ok=True)
-
-# Process each .txt file in the input directory
-for filename in os.listdir(input_directory):
-    if filename.endswith('.txt'):
-        input_file_path = os.path.join(input_directory, filename)
-        output_file_name = os.path.splitext(filename)[0] + '.json'
-        output_file_path = os.path.join(output_directory, output_file_name)
-
-        # Process the file and convert to JSON
-        process_file(input_file_path, output_file_path)
-
-        print(f"Processed {input_file_path} -> {output_file_path}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Split a JSON file into multiple parts")
@@ -271,5 +286,5 @@ if __name__ == "__main__":
     parser.add_argument("model_path", type=str, help="Path to model .nemo file")
     args = parser.parse_args()
 
-    split_json_file(args.input_path, output_path, lines_per_part)
+    split_json_file(args.input_path)
     longFile(args.model_path)
