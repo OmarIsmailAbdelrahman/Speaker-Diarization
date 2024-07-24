@@ -126,7 +126,7 @@ We decided to use nemo for the following reasons:
 - After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
 - Tested  the following range of values 0.5 <= `sigmoid threshold` <= 0.9 showed no significant improvement compared to default value of 0.75.
 - fine-tuned the MSDD module but it showed no improvement. 1 epoch took 6 hours so we trained for 5 epochs only.
-- Tuned the weights of the scales on the custom SADA dataset, reaching the following values: `[1, 1, 0.4, 1, 1]`
+- Tuned the `multiscale_weights` which are the weights given to each scale on the custom SADA dataset, following values: `[1, 1, 0.4, 1, 1]` made a slight improvement.
 
 ##### Results
 <p align="center">
