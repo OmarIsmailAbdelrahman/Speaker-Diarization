@@ -28,7 +28,7 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
   <img src="https://github.com/OmarIsmailAbdelrahman/MTC-Competiton/assets/81030289/7efadcd7-5f05-4202-b299-31b357309eca" alt="Conformer CTC on NeMo"/>
 </p>
 
-- This approach allowed us to achieve a WER of 10.840672 MLD, a significant improvement over the 12.995944 MLD achieved in phase one.
+- This approach allowed us to achieve 10.840672 `MLD`, a significant improvement over the 12.995944 MLD achieved in phase one.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/33697d5b-6381-478a-87e9-ccadfe05563e" alt="New wer"/>
@@ -37,7 +37,7 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
 ### Dynamic Adjustment of Dropout Rates
 Dynamic dropout involves adjusting the dropout rates during the training process to prevent overfitting and improve model generalization. Initially, higher dropout rates are used to enforce stronger regularization, reducing the model's dependency on specific neurons. After several epochs, the dropout rates are decreased, allowing the model to fine-tune and capture more complex patterns without being overly regularized.
 
-This strategy helped us achieve the lower MLD score of 8.9, a notable improvement over our previous results.
+This strategy helped us achieve a lower `MLD` score of 8.9, a notable improvement over our previous results.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/486412ee-0d1b-4505-a525-9fbbc54a176e" alt="New wer"/>
