@@ -234,7 +234,7 @@ def longFile(model_path):
         os.system(
             f'HYDRA_FULL_ERROR=1 python {data_dir}/NeMo/examples/speaker_tasks/diarization/neural_diarizer/multiscale_diar_decoder_infer.py --config-path {data_dir} --config-name diar_infer_telephonic.yaml')
 
-        rttm_file_path = os.listdir(output_inference_path)
+        rttm_file_path = os.listdir(os.path.join(output_inference_path, 'pred_rttms'))
         data = []
 
         with open(os.path.join(output_inference_path, rttm_file_path[0]), 'r') as file_pred_rttm:
