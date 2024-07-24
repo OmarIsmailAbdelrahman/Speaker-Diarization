@@ -1,19 +1,5 @@
 # Speaker-Diarization
 
-1. we tried nemo offline diarization model
-2. we tried to train nemo offline diarization it but *failed no change*
-3. we created a custom dataset using SADA arabic dataset and created different configuration of this dataset from changing the overlapping duration and probability occurance and silance between audio files
-4. we tried pyaanote offline diarization model and compared between it and nemo, and the results show that nemo is better "in paper nemo is better in clustrering and embedding model"
-5. we found a problem in nemo clustring algorithm, which returns a single cluster and tried to fix it *give the code and example and test the difference between the original and modified code* ???
-6. we tried different configuration on nemo offline diarization model, configuration 1.rp_threshold 2.sigmoid_threshold 3.different scales and weight *show results*
-7. Nemo online *Faild*
-8. Diarat Online based on pyaanote diarization and it worked but have problem with determining speakers
-9. we tried to modifiy offline nemo to have a speaker linking *identify same speaker in different files*
-10. we trained ASR model and achiverd WER 8.9 and tried different tokenize 
-11. we integrated the ASR model which we trained to have 8.9 WER with nemo offline diarization
-12. we tried to fix diart online problem by changing the embedding and clustring algorithm *Faild*
-13. converted online diart from reading microphone to steaming files "add if possible that this allowed us to check for the DER and measure perofrmance"
-
 ## ASR Model Improvement
 The unigram tokenizer based conformer which achieved  `11.9 MLD` used in phase 1 was using 32 precision which took double the training time of 16 precision model with no significant effect on the results. Therefore, we decided to use `16 precision` models in this phase.
 
@@ -114,7 +100,9 @@ We decided to use nemo for the following reasons:
 </p>
 
 ##### Language Model
-- Integrated a `5-gram` language model with the asr model.
+- Integrated a `5-gram` language model with the asr model and diarization.
+- We faced the same problem as phase 1, where we faced difficulty in adjusting the parameters so it resulted in worse speech to text results.
+- This could also be due to the dataset [[5]](#refrences) used to build the n-gram model not enough.
 ##### Challenges
 - sometimes the configuration require to be set hard-coded because the configuration is not always set the same across the system, example `enhanced_count_thres` is always set to 80.
 - Nemo NME-SC implementation sometimes returned wrong number of clusters: 
@@ -212,3 +200,5 @@ We have developed a custom online diarization system leveraging various modules 
 [3] T. J. Park, N. R. Koluguri, J. Balam, and B. Ginsburg, "Multi-scale Speaker Diarization with Dynamic Scale Weighting," arXiv preprint arXiv:2203.15974, 2022. Available: https://arxiv.org/abs/2203.15974
 
 [4] https://www.kaggle.com/datasets/sdaiancai/sada2022
+
+[5] https://www.kaggle.com/datasets/mostafanofal/two-million-rows-egyptian-datasets
