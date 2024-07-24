@@ -228,6 +228,8 @@ def longFile(model_path):
 
         # Run the diarization inference
         cfg.diarizer.out_dir = output_inference_path
+        cfg.diarizer.manifest_filepath = os.path.join(data_dir,'input_manifest.json')
+
         OmegaConf.save(cfg, "/kaggle/working/diar_infer_telephonic.yaml")
 
         os.system(
