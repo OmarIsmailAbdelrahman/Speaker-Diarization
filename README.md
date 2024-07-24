@@ -102,7 +102,7 @@ We decided to use nemo for the following reasons:
 ##### Language Model
 - Integrated a `5-gram` language model with the asr model and diarization.
 - We faced the same problem as phase 1, where we faced difficulty in adjusting the parameters so it resulted in worse speech to text results.
-- This could also be due to the dataset [[5]](#refrences) used to build the n-gram model not enough.
+- This could also be due to the dataset [[5]](#refrences) used to build the n-gram model being not enough.
 ##### Challenges
 - sometimes the configuration require to be set hard-coded because the configuration is not always set the same across the system, example `enhanced_count_thres` is always set to 80.
 - Nemo NME-SC implementation sometimes returned wrong number of clusters: 
