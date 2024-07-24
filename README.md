@@ -35,7 +35,7 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
 </p>
 
 ### Dynamic Adjustment of Dropout Rates
-Dynamic dropout involves adjusting the dropout rates during the training process to prevent overfitting and improve model generalization. Initially, higher dropout rates are used to enforce stronger regularization, reducing the model's dependency on specific neurons. After several epochs, the dropout rates are decreased, allowing the model to fine-tune and capture more complex patterns without being overly regularized.
+We discovered that tweaking the dropout rates during training was a game-changer for us. By starting with high dropout rates, we forced the model to avoid relying too much on specific neurons, which helped it learn more robust features. After a few epochs, we gradually lowered the dropout rates, letting the model fine-tune and capture more complex patterns.
 
 This strategy helped us achieve the lower MLD score of 8.9, a notable improvement over our previous results.
 
@@ -44,13 +44,13 @@ This strategy helped us achieve the lower MLD score of 8.9, a notable improvemen
 </p>
 
 **Observations**
-1. Initial High Dropout Rates: The early part of the training shows a gradual decrease in WER, indicating that the model is learning and benefiting from the initial high dropout rates. This phase helps in robust feature learning and reduces overfitting.
+1. **Starting Strong with High Dropout Rates:** Early on, we saw a steady drop in WER. The model was learning well and avoiding overfitting, thanks to those high dropout rates.
 
-2. Reduction in Dropout Rates: Around the 190k global step mark, there is a noticeable drop in WER across multiple runs (green, teal, blue lines). This sudden improvement suggests that the reduction in dropout rates allows the model to fine-tune its learned features more effectively.
+2. **Dropping the Dropout Rates:** Around the 190k global step mark, we saw a sharp decline in WER across multiple runs (check out the green, teal, and blue lines). Lowering the dropout rates at this point allowed the model to really hone its skills.
 
-3. Stabilization and Consistency: After the initial drop, the WER values stabilize and maintain lower levels compared to the initial phases. This indicates that the dynamic adjustment of dropout rates helped achieve better performance and generalization.
+3. **Staying Consistent:** After that big drop, the WER values leveled off and stayed low. This consistency showed that our dropout strategy worked wonders for model performance and generalization.
 
-4. Comparative Performance: Different runs exhibit varying levels of WER reduction, but the overall trend shows improvement, demonstrating the effectiveness of the dynamic dropout technique.
+4. **Comparing Results:** Each run had different levels of WER reduction, but overall, the trend was clear: dynamic dropout made a significant difference.
 
 ## Offline Speaker Diarization Experiments
 A typical speaker diarization pipeline consists of the following:
