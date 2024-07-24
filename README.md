@@ -227,9 +227,9 @@ optional arguments:
                         Path to the .nemo ASR model checkpoint file.
   --mic_device MIC_DEVICE
                         Microphone device ID.
-
 ```
-
+Note: The output might be broken in terminal as it does not support arabic language.
+I had to use pycharm to output arabic text correctly.
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
