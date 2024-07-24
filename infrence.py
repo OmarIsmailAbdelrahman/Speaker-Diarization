@@ -28,9 +28,8 @@ import re
 import git
 
 
-def clone_repo(repo_url):
+def clone_repo(repo_url, current_dir):
     try:
-        current_dir = os.getcwd()  # Get the current working directory
         git.Repo.clone_from(repo_url, current_dir)
         print(f"Repository cloned to the current directory: {current_dir}")
     except Exception as e:
@@ -188,7 +187,7 @@ def longFile(model_path):
     repo_url = "https://github.com/motawie0/NeMo.git"
     # Directory where you want to clone the repository
 
-    clone_repo(repo_url)
+    clone_repo(repo_url, data_dir)
     # Create necessary directories
     os.makedirs(os.path.join(data_dir, 'temp_wav_output'), exist_ok=True)
     os.makedirs(os.path.join(data_dir, 'temp_wav'), exist_ok=True)
