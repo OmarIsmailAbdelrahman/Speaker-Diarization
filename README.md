@@ -144,9 +144,30 @@ Diart by default uses pyannote pipeline but adds online streaming and buffering 
 the model couldn't keep the profile of the speakers, and somethimes in long runs the pipeline starts to miss label and keep predicting the same words
 
 ### Custom Online Pipeline
-  We built a custom online diraization using different modules and RxPY Library and used Diart as a reference. We changed the input from microphone to streaming an audio file for easier debugging and measuing performance, the stream creates a window of 5 seconds with shift of 1 second, the window is forwarded to the diarization pipeline, the large is used for the VAD model and for large scales. The VAD provied us with segments intervals that contain the conversation, then we uses multi-scale segmentation to create sub-segment with different temporal resolution, and for efficiency segments intervals are stored to stop redundancy. Then all segments from different scales are fed to titanet for creating embeddings, we tried using different clustering methods like Agglomerative Clustering, we tried to create a clustering algorithm that first uses NME-SC To estimate the number of clusters, then uses k-means to predict the clusters and for efficiency the clustering algorithm set a limited number of points inside each cluster, and if the number exceeded a specific threshold the points near the center with the highest similarity value is merged together to create a single point, this maintain the cluster and increase speed on the long sessions. The final clustering algorithm used is nemo's full clustering algorithm, We changed the source code for for the data formating between the two pipeline.
-  and we noticed that the cluster labeling changes a lot and all clustering algorithm produce wrong number of cluster, thus we created a graph structure to reduce the problem, the vercties of the graph are the embeddings, and the edges between vertcies is set when two embeddings are in the same cluster, the graph is built incrementally, and the edges are weights to determine how many times the same embeddings were in the same predicted clusters, and now for prediction we use a threshold that should be tuned on different window and step sizes to remove the edges with lower weights and create sub-graphs that cluster points that are highly connected to each other, this might improve the accuracy of the clustering algorithm as it averages the error and allows to have a consistence speaker which diart model doesn't have
+#### Overview
+We have developed a custom online diarization system leveraging various modules and the RxPY Library, with Diart serving as a reference framework. For debugging and performance evaluation, we transitioned from microphone input to streaming audio files. The stream allows for the creation of a 5-second window with a 1-second shift, which is then processed through the diarization pipeline.
 
+#### Voice Activity Detection (VAD)
+- **VAD Model**: Used pyannote VAD modle to detect conversation segments within the audio stream.
+
+#### Segmentation
+- **Multi-Scale Segmentation**: Generates sub-segments at different temporal resolutions.
+- **Efficient Storage**: Segment intervals are stored for efficiency, and to minimize redundancy.
+
+#### Embedding and Clustering
+- **Titanet Embeddings**: Segments from various scales are converted into embeddings.
+- **Clustering Techniques**:
+  - Developed a custom clustering algorithm that uses NME-SC to estimate cluster numbers before employing k-means for precise cluster predictions.
+  - Implements a limit on the number of points per cluster to boost efficiency, merging points when exceeding thresholds based on proximity and similarity.
+
+#### Nemo's Clustering Algorithm
+- **Integration and Modification**: Used Nemo's clustering algorithm, and Modification was required for data formatting between different pipeline stages.
+
+#### Graph-Based Structure for Clustering Improvement
+- **Main Idea**: because of the unstablility of the clustering model, we recommended creating a graph that connect points of the same clusters, and the most connected embeddings have a higher probability to be in the same cluster, this could enhance the clustering prediction
+- **Graph Construction**: A graph is incrementally built where vertices are embeddings and edges represent the co-occurrence of embeddings in the same cluster.
+- **Edge Weighting and Pruning**: Edges are weighted according to the frequency of embeddings appearing together in clusters. A threshold-based mechanism is used to prune edges, forming sub-graphs of tightly interconnected points.
+- **Problems**: It requires more testing and dealing with the single cluster problem
 
 #### Future works
   The Pipeline is missing Connection between the online diarization output and the ASR Model.
