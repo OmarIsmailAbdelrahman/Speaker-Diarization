@@ -42,11 +42,29 @@ These was the tokens in phase 1 model which did not include `<fill>` `<overlap>`
   <img src="https://github.com/OmarIsmailAbdelrahman/MTC-Competiton/assets/81030289/7efadcd7-5f05-4202-b299-31b357309eca" alt="Conformer CTC on NeMo"/>
 </p>
 
-- Achieved `8.9 MLD` which is lower than what was achieved in phase 1 by 2%
+- This approach allowed us to achieve a WER of 10.840672 MLD, a significant improvement over the 12.995944 MLD achieved in phase one.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/33697d5b-6381-478a-87e9-ccadfe05563e" alt="New wer"/>
 </p>
+
+### Dynamic Adjustment of Dropout Rates
+Dynamic dropout involves adjusting the dropout rates during the training process to prevent overfitting and improve model generalization. Initially, higher dropout rates are used to enforce stronger regularization, reducing the model's dependency on specific neurons. After several epochs, the dropout rates are decreased, allowing the model to fine-tune and capture more complex patterns without being overly regularized.
+
+This strategy helped us achieve the lower MLD score of 8.9, a notable improvement over our previous results.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/486412ee-0d1b-4505-a525-9fbbc54a176e" alt="New wer"/>
+</p>
+
+**Observations**
+1. Initial High Dropout Rates: The early part of the training shows a gradual decrease in WER, indicating that the model is learning and benefiting from the initial high dropout rates. This phase helps in robust feature learning and reduces overfitting.
+
+2. Reduction in Dropout Rates: Around the 190k global step mark, there is a noticeable drop in WER across multiple runs (green, teal, blue lines). This sudden improvement suggests that the reduction in dropout rates allows the model to fine-tune its learned features more effectively.
+
+3. Stabilization and Consistency: After the initial drop, the WER values stabilize and maintain lower levels compared to the initial phases. This indicates that the dynamic adjustment of dropout rates helped achieve better performance and generalization.
+
+4. Comparative Performance: Different runs exhibit varying levels of WER reduction, but the overall trend shows improvement, demonstrating the effectiveness of the dynamic dropout technique.
 
 ## Offline Speaker Diarization Experiments
 A typical speaker diarization pipeline consists of the following:
