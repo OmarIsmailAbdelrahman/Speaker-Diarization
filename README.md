@@ -172,9 +172,17 @@ We have developed a custom online diarization system leveraging various modules 
 #### Future works
   The Pipeline is missing Connection between the online diarization output and the ASR Model.
 
-## Dataset 
-- we created a custom dataset creator that can produce new audio file with specific properties from existing files, you can set the number of speak, speaker duration range, probability of overlapping occurance, and the ratio of overlapping, etc.. 
-- And used SADA dataset which is an Arabic dataset for measuring the performance of the diarization, and added compress dynamic range
+## Dataset
+
+### Audio Sample Generator
+- **Overview**: This tool allows for the creation of tailored audio files from existing recordings. Users can adjust several aspects to simulate various listening environments or diarization scenarios.
+- **Customizable Features**:
+  - Specify the number of speakers in each audio file.
+  - Set the length of time each speaker is heard.
+  - Adjust the likelihood and extent of speaker overlap.
+  - applying dynamic range compression to improve the clarity and quality of the audio.
+- **Used Dataset**: We use the SADA صدى dataset that exceeds 600 hours of Arabic audio recordings, it is used for measuring the performance of our diarization system.
+
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
