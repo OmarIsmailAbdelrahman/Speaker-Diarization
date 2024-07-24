@@ -205,6 +205,24 @@ The checkpoint is in this [kaggle dataset](https://www.kaggle.com/datasets/youss
 /the-best-results/results/Some name of our experiment/checkpoints/conformer.nemo
 ```
 
+## Infrence
+### online diarization infrence
+To list mic deices ID use: <br>
+`python -m sounddevice`
+```python
+usage: script.py [-h] --model_name MODEL_NAME --mic_device MIC_DEVICE
+
+Real-time speaker diarization and transcription.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --model_name MODEL_NAME
+                        Name of the NeMo ASR model.
+  --mic_device MIC_DEVICE
+                        Microphone device ID.
+
+```
+
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
