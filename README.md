@@ -142,7 +142,7 @@ We decided to use nemo for the following reasons:
 | 5              | 80                  | 1.588                            | 0.3275         |
 
 ##### Experiments
-- Tuned the `rp` and `sigmoid` thresholds to arabic sadadest to optimizer the model performance on arabic speech.
+- Tuned the `rp` and `sigmoid` thresholds to arabic sada datadest to optimizer the model performance on arabic speech.
 - After testing values for `rp` from 0.03 to 0.5, we found `rp` = 0.25 gave the best `DER` results.
 - Tested  the following range of values 0.5 <= `sigmoid threshold` <= 0.9 showed no significant improvement compared to default value of 0.75.
 - fine-tuned the MSDD module but it showed no improvement. 1 epoch took 6 hours so we trained for 5 epochs only.
