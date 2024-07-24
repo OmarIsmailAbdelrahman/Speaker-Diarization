@@ -1,7 +1,8 @@
 # Speaker-Diarization
 
 ## ASR Model Improvement
-The unigram tokenizer based conformer which achieved  `11.9 MLD` used in phase 1 was using 32 precision which took double the training time of 16 precision model with no significant effect on the results. Therefore, we decided to use `16 precision` models in this phase.
+The unigram tokenizer based conformer which achieved  `11.9 MLD` used in phase 1 was using 32 precision which took double the training time of 16 precision model with no significant effect on the results. Therefore, we decided to use `16 precision` models in this phase. <br>
+These if no Significant difference between 16 and 32 because `16bit Automatic Mixed Precision (AMP)` is being used. Some ops, like linear layers and convolutions, are much faster in `float16` or `bfloat16`. Other ops, like reductions, often require the dynamic range of `float32`. Mixed precision tries to match each op to its appropriate datatype, which can reduce your network’s runtime and memory footprint.
 
 ### Phase 1 Unigram tokens
 These was the tokens in phase 1 model which did not include `<fill>` `<overlap>` `<laugh>` tokens but instead used their characters as tokens which was incorrect. Also, the tokens included whole words which had more than 3 characters.
