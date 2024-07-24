@@ -198,8 +198,7 @@ def longFile(model_path):
     asr_model = EncDecCTCModel.restore_from(model_path)
 
     for file in too_big:
-        output_inference_path = os.path.join(data_dir, 'output_inference/pred_rttms')
-
+        output_inference_path = os.path.join(data_dir, 'output_inference')
         # Ensure the output_inference_path exists and clear its contents
         if os.path.exists(output_inference_path):
             for root, dirs, files in os.walk(output_inference_path):
