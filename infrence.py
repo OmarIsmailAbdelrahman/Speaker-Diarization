@@ -173,18 +173,18 @@ def longFile(model_path):
         if dur > 200:
             too_big.append(file_path)
             continue
-        cfg.diarizer.manifest_filepath = file_path
-        asr_decoder_ts = ASRDecoderTimeStamps(cfg.diarizer)
-        asr_model = asr_decoder_ts.set_asr_model()
-        word_hyp, word_ts_hyp = asr_decoder_ts.run_ASR(asr_model)
-        asr_diar_offline = OfflineDiarWithASR(cfg.diarizer)
-        asr_diar_offline.word_ts_anchor_offset = asr_decoder_ts.word_ts_anchor_offset
-        diar_hyp, diar_score = asr_diar_offline.run_diarization(cfg, word_ts_hyp)
-        trans_info_dict = asr_diar_offline.get_transcript_with_speaker_labels(diar_hyp, word_hyp, word_ts_hyp)
-        clear_output()
+        # cfg.diarizer.manifest_filepath = file_path
+        # asr_decoder_ts = ASRDecoderTimeStamps(cfg.diarizer)
+        # asr_model = asr_decoder_ts.set_asr_model()
+        # word_hyp, word_ts_hyp = asr_decoder_ts.run_ASR(asr_model)
+        # asr_diar_offline = OfflineDiarWithASR(cfg.diarizer)
+        # asr_diar_offline.word_ts_anchor_offset = asr_decoder_ts.word_ts_anchor_offset
+        # diar_hyp, diar_score = asr_diar_offline.run_diarization(cfg, word_ts_hyp)
+        # trans_info_dict = asr_diar_offline.get_transcript_with_speaker_labels(diar_hyp, word_hyp, word_ts_hyp)
+        # clear_output()
 
     # Define the data directory
-    repo_url = "https://github.com/motawie0 /NeMo.git"
+    repo_url = "https://github.com/motawie0/NeMo.git"
     # Directory where you want to clone the repository
 
     clone_repo(repo_url, data_dir)
