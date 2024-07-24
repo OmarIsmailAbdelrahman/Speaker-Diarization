@@ -206,9 +206,16 @@ The checkpoint is in this [kaggle dataset](https://www.kaggle.com/datasets/youss
 ```
 
 ## Infrence
+Run setup to install required packages versions and dependencies:
+```
+python setup.py
+```
 ### online diarization infrence
 To list mic deices ID use: <br>
-`python -m sounddevice`
+```
+python -m sounddevice
+```
+
 ```python
 usage: script.py [-h] --model_name MODEL_NAME --mic_device MIC_DEVICE
 
