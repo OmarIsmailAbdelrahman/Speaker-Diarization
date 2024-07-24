@@ -141,13 +141,15 @@ Diart by default uses pyannote pipeline but adds online streaming and buffering 
 
 
 ### Challenges
-the model couldn't keep the profile of the speakers, and in long run the model starts to hallucination and keep predicting the same words
+the model couldn't keep the profile of the speakers, and somethimes in long runs the pipeline starts to miss label and keep predicting the same words
 
 ### Custom Online Pipeline
-  We built a custom online diraization using different modules and RxPY Library and used Diart as a reference, we used pyaanote VAD model for predicting the segments with activity, then we used multi-
-  
-  , you also modified the input to stream audio files instead of microphone for consistence input and measuering performance more accuratly, 
-  
+  We built a custom online diraization using different modules and RxPY Library and used Diart as a reference. We changed the input from microphone to streaming an audio file for easier debugging and measuing performance, the stream creates a window of 5 seconds with shift of 1 second, the window is forwarded to the diarization pipeline, the large is used for the VAD model and for large scales. The VAD provied us with segments intervals that contain the conversation, then we uses multi-scale segmentation to create sub-segment with different temporal resolution, and for efficiency segments intervals are stored to stop redundancy. Then all segments from different scales are fed to titanet for creating embeddings, we tried using different clustering methods like Agglomerative Clustering, we tried to create a clustering algorithm that first uses NME-SC To estimate the number of clusters, then uses k-means to predict the clusters and for efficiency the clustering algorithm set a limited number of points inside each cluster, and if the number exceeded a specific threshold the points near the center with the highest similarity value is merged together to create a single point, this maintain the cluster and increase speed on the long sessions. The final clustering algorithm used is nemo's full clustering algorithm, We changed the source code for for the data formating between the two pipeline.
+  and we noticed that the cluster labeling changes a lot and all clustering algorithm produce wrong number of cluster, thus we created a graph structure to reduce the problem, the vercties of the graph are the embeddings, and the edges between vertcies is set when two embeddings are in the same cluster, the graph is built incrementally, and the edges are weights to determine how many times the same embeddings were in the same predicted clusters, and now for prediction we use a threshold that should be tuned on different window and step sizes to remove the edges with lower weights and create sub-graphs that cluster points that are highly connected to each other, this might improve the accuracy of the clustering algorithm as it averages the error and allows to have a consistence speaker which diart model doesn't have
+
+
+#### Future works
+  The Pipeline is missing Connection between the online diarization output and the ASR Model.
 
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
