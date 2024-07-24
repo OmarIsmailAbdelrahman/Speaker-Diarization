@@ -185,7 +185,7 @@ def longFile(model_path):
         clear_output()
 
     # Define the data directory
-    repo_url = "https://github.com/NVIDIA/NeMo.git"
+    repo_url = "https://github.com/motawie0/NeMo.git"
     # Directory where you want to clone the repository
 
     clone_repo(repo_url, data_dir)
