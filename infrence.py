@@ -167,8 +167,7 @@ def longFile(model_path):
 
     too_big = []
     for manifest_file in os.listdir(output_path):
-        file_path = os.path.join(manifest_file)
-        print(file_path)
+        file_path = os.path.join(output_path,manifest_file)
         with open(file_path, 'r') as file:
             dur = json.load(file)['duration']
         if dur > 200:
