@@ -151,6 +151,9 @@ the model couldn't keep the profile of the speakers, and somethimes in long runs
 #### Future works
   The Pipeline is missing Connection between the online diarization output and the ASR Model.
 
+## Dataset 
+- we created a custom dataset creator that can produce new audio file with specific properties from existing files, you can set the number of speak, speaker duration range, probability of overlapping occurance, and the ratio of overlapping, etc.. 
+- And used SADA dataset which is an Arabic dataset for measuring the performance of the diarization, and added compress dynamic range
 ## References
 [1] S. Wang, Z. Chen, B. Han, H. Wang, C. Liang, B. Zhang, X. Xiang, W. Ding, J. Rohdin, A. Silnova, Y. Qian, and H. Li, "Advancing speaker embedding learning: Wespeaker toolkit for production first-line systems," *Neurocomputing*, vol. 559, pp. 125892, 2023. Available: [https://doi.org/10.1016/j.specom.2024.103104](https://doi.org/10.1016/j.specom.2024.103104).
 
