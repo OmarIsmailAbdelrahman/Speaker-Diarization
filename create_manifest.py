@@ -33,7 +33,7 @@ def create_manifest(audio_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a manifest JSON file for a speaker diarization dataset.")
-    parser.add_argument('audio_dir', type=str, help='Directory containing the audio files.')
+    parser.add_argument('audio_dir', type=str, required=True, help='Directory containing the audio files.')
 
     args = parser.parse_args()
 
