@@ -282,8 +282,8 @@ def longFile(model_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Split a JSON file into multiple parts")
-    parser.add_argument("input_path", type=str, required=True, help="Path to the input JSON file")
-    parser.add_argument("model_path", type=str, required=True, help="Path to model .nemo file")
+    parser.add_argument("--input_path", type=str, required=True, help="Path to the input JSON file")
+    parser.add_argument("--model_path", type=str, required=True, help="Path to model .nemo file")
     args = parser.parse_args()
 
     split_json_file(args.input_path)
