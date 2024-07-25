@@ -155,7 +155,7 @@ def longFile(model_path):
     cfg.diarizer.asr.parameters.asr_batch_size = 1
     # Using Neural VAD and Conformer ASR
     cfg.diarizer.vad.model_path = 'vad_multilingual_marblenet'
-    cfg.diarizer.asr.model_path = "/kaggle/input/the-best-results/results/Some name of our experiment/checkpoints/conformer.nemo"
+    cfg.diarizer.asr.model_path = model_path
     cfg.diarizer.oracle_vad = False
     cfg.diarizer.asr.parameters.asr_based_vad = False
     cfg.diarizer.ignore_overlap = False
