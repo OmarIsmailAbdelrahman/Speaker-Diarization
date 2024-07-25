@@ -274,8 +274,6 @@ def longFile(model_path):
 
 
 
-# Function to convert time in "MM:SS.SS" format to seconds
-
 
 
 if __name__ == "__main__":
