@@ -186,7 +186,7 @@ def longFile(model_path):
     # Create necessary directories
     os.makedirs(os.path.join(data_dir, 'temp_wav_output'), exist_ok=True)
     os.makedirs(os.path.join(data_dir, 'temp_wav'), exist_ok=True)
-    os.makedirs(os.path.join(data_dir, 'long_audio_json'), exist_ok=True)
+    os.makedirs(os.path.join(data_dir, 'audio_json'), exist_ok=True)
 
     # Restore the ASR model
     asr_model = EncDecCTCModel.restore_from(model_path)
@@ -246,7 +246,7 @@ def longFile(model_path):
 
         segments = [{"start": start, "end": end, "speaker": speaker, "text": text} for start, end, speaker, text in data]
         audio_filename = os.path.splitext(os.path.basename(audio_path))[0]
-        output_json_path = os.path.join(data_dir, 'long_audio_json', f'{audio_filename}.json')
+        output_json_path = os.path.join(data_dir, 'audio_json', f'{audio_filename}.json')
 
         print(f"dumping in {output_json_path}")
 
@@ -255,7 +255,7 @@ def longFile(model_path):
             json.dump(segments, f, ensure_ascii=False, indent=4)
     # Paths to the input and output directories
     input_directory = os.path.join(data_dir, 'pred_rttms')
-    output_directory = os.path.join(data_dir, 'small_audio_json')
+    output_directory = os.path.join(data_dir, 'audio_json')
 
     # Create the output directory if it doesn't exist
     os.makedirs(output_directory, exist_ok=True)
