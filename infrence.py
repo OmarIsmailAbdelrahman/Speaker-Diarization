@@ -260,8 +260,8 @@ def longFile(model_path):
         with open(output_json_path, 'w', encoding='utf-8') as f:
             json.dump(segments, f, ensure_ascii=False, indent=4)
     # Paths to the input and output directories
-    input_directory = os.path.join(data_dir, 'output_inference/pred_rttms')
-    output_directory = os.path.join(data_dir, 'long_audio_json')
+    input_directory = os.path.join(data_dir, 'pred_rttms')
+    output_directory = os.path.join(data_dir, 'small_audio_json')
 
     # Create the output directory if it doesn't exist
     os.makedirs(output_directory, exist_ok=True)
