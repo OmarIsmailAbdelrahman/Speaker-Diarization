@@ -209,7 +209,7 @@ Run setup to install required packages versions and dependencies:
 python setup.py
 ```
 ### Offline Diarization infrence
-
+The outputs will be in `long_audio_json` and `small_audio_json` directories.
 ```python
 usage: infrence.py [-h] --input_path INPUT_PATH --model_path MODEL_PATH
 
