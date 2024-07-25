@@ -28,12 +28,7 @@ import re
 import git
 
 
-def clone_repo(repo_url, current_dir):
-    try:
-        git.Repo.clone_from(repo_url, current_dir)
-        print(f"Repository cloned to the current directory: {current_dir}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+
 def split_json_file(input_path):
     # Ensure the output directory exists
     output_path = os.path.join(os.getcwd(), "split_manifest")
@@ -187,7 +182,6 @@ def longFile(model_path):
     repo_url = "https://github.com/motawie0/NeMo.git"
     # Directory where you want to clone the repository
 
-    # clone_repo(repo_url, data_dir)
     exit_code = os.system(f"git clone {repo_url}")
     # Create necessary directories
     os.makedirs(os.path.join(data_dir, 'temp_wav_output'), exist_ok=True)
