@@ -208,6 +208,22 @@ Run setup to install required packages versions and dependencies:
 ```
 python setup.py
 ```
+### Offline Diarization infrence
+
+```python
+usage: infrence.py [-h] --input_path INPUT_PATH --model_path MODEL_PATH
+
+Split a JSON file into multiple parts and infrence the model
+
+options:
+  -h, --help            show this help message and exit
+  --input_path INPUT_PATH
+                        Path to the input JSON file
+  --model_path MODEL_PATH
+                        Path to model .nemo file
+
+```
+
 ### DIART online diarization infrence
 To list mic deices ID use: <br>
 ```
@@ -226,6 +242,7 @@ optional arguments:
   --mic_device MIC_DEVICE
                         Microphone device ID.
 ```
+
 Note: The output might be broken in terminal as it does not support arabic language.
 I had to use pycharm to output arabic text correctly.
 ## References
